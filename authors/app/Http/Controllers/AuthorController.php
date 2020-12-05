@@ -22,7 +22,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return $this->successResponse(Author::all(),200);
+        return $this->successResponse(Author::all(), 200);
     }
 
     /**
@@ -30,9 +30,9 @@ class AuthorController extends Controller
      * @param Author $author
      * @return Response
      */
-    public function show( $author )
+    public function show($author)
     {
-        return $this->successResponse(Author::findOrFail($author),200);
+        return $this->successResponse(Author::findOrFail($author), 200);
     }
 
     /**
@@ -42,11 +42,7 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData = $this->validate($request,[
-            'name'=>'required|max:255',
-            'gender'=> 'required|in:male,female|max:255',
-            'country'=> 'required|max:255',
-        ]);
+        $validatedData = $this->validateRequest($request);
 
         $newAuthor = Author::create($validatedData);
 
@@ -57,11 +53,17 @@ class AuthorController extends Controller
      * Update the data of a given Author
      * @param Request $request
      * @param Author $author
-     * @return void
+     * @return Response
      */
-    public function update(Request $request, Author $author)
+    public function update(Request $request, $author)
     {
+        $author = Author::findOrFail($author);
 
+        $validatedData = $this->validateRequest($request);
+
+        $author->update($validatedData);
+
+        return $this->successResponse($author, Response::HTTP_OK);
     }
 
     /**
@@ -73,6 +75,22 @@ class AuthorController extends Controller
     public function destroy(Request $request, Author $author)
     {
 
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    private function validateRequest(Request $request): array
+    {
+        $validatedData = $this->validate($request, [
+            'name' => 'required|max:255',
+            'gender' => 'required|in:male,female|max:255',
+            'country' => 'required|max:255',
+        ]);
+
+        return $validatedData;
     }
 
 
