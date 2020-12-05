@@ -45,7 +45,6 @@ class BookController extends Controller
     public function store(Request $request)
     {
         $validatedData = $this->validateRequest($request);
-
         $newBook = Book::create($validatedData);
 
         return $this->successResponse($newBook, Response::HTTP_CREATED);
@@ -60,7 +59,6 @@ class BookController extends Controller
     public function update(Request $request, $book)
     {
         $book = Book::findOrFail($book);
-
         $validatedData = $this->validateRequest($request, $book);
 
         $book->update($validatedData);
@@ -75,9 +73,7 @@ class BookController extends Controller
      */
     public function destroy($book)
     {
-
         $book = Book::findOrFail($book);
-
         $book->delete();
 
         return $this->successResponse(null,Response::HTTP_NO_CONTENT);
@@ -90,16 +86,14 @@ class BookController extends Controller
      */
     private function validateRequest(Request $request, $book=null): array
     {
-
         $validatedData = $this->validate($request, [
             'title' => ['max:255',Rule::requiredIf( empty($book) )],
             'description' => ['max:255',Rule::requiredIf( empty($book) )],
-            'price' => ['int',Rule::requiredIf( empty($book) )],
-            'author_id' => ['int',Rule::requiredIf( empty($book) )],
+            'price' => ['int','min:1',Rule::requiredIf( empty($book) )],
+            'author_id' => ['int','min:1',Rule::requiredIf( empty($book) )],
         ]);
 
         return $validatedData;
     }
-
 
 }
