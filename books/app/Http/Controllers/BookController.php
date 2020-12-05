@@ -24,7 +24,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        return $this->successResponse(Book::all(), 200);
+        return $this->successResponse(Book::all());
     }
 
     /**
@@ -34,7 +34,7 @@ class BookController extends Controller
      */
     public function show($book)
     {
-        return $this->successResponse(Book::findOrFail($book), 200);
+        return $this->successResponse(Book::findOrFail($book));
     }
 
     /**
@@ -65,7 +65,7 @@ class BookController extends Controller
 
         $book->update($validatedData);
 
-        return $this->successResponse($book, Response::HTTP_OK);
+        return $this->successResponse($book);
     }
 
     /**

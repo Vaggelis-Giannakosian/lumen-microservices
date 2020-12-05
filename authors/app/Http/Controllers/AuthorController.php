@@ -23,7 +23,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return $this->successResponse(Author::all(), 200);
+        return $this->successResponse(Author::all());
     }
 
     /**
@@ -33,7 +33,7 @@ class AuthorController extends Controller
      */
     public function show($author)
     {
-        return $this->successResponse(Author::findOrFail($author), 200);
+        return $this->successResponse(Author::findOrFail($author));
     }
 
     /**
@@ -64,7 +64,7 @@ class AuthorController extends Controller
 
         $author->update($validatedData);
 
-        return $this->successResponse($author, Response::HTTP_OK);
+        return $this->successResponse($author);
     }
 
     /**
