@@ -6,6 +6,7 @@ use App\Models\Author;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Validation\Rule;
 
 class AuthorController extends Controller
 {
@@ -59,7 +60,7 @@ class AuthorController extends Controller
     {
         $author = Author::findOrFail($author);
 
-        $validatedData = $this->validateRequest($request);
+        $validatedData = $this->validateRequest($request, $author);
 
         $author->update($validatedData);
 
@@ -86,12 +87,12 @@ class AuthorController extends Controller
      * @return array
      * @throws \Illuminate\Validation\ValidationException
      */
-    private function validateRequest(Request $request): array
+    private function validateRequest(Request $request, $author = null): array
     {
         $validatedData = $this->validate($request, [
-            'name' => 'required|max:255',
-            'gender' => 'required|in:male,female|max:255',
-            'country' => 'required|max:255',
+            'name' => ['max:255',Rule::requiredIf( empty($author) )] ,
+            'gender' => ['max:255','in:male,female',Rule::requiredIf( empty($author) )],
+            'country' => ['max:255',Rule::requiredIf( empty($author) )],
         ]);
 
         return $validatedData;
