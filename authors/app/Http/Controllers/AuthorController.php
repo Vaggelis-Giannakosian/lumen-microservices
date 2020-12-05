@@ -27,7 +27,7 @@ class AuthorController extends Controller
 
     /**
      * Show a single author
-     * @param Author $author
+     * @param string $author
      * @return Response
      */
     public function show($author)
@@ -52,7 +52,7 @@ class AuthorController extends Controller
     /**
      * Update the data of a given Author
      * @param Request $request
-     * @param Author $author
+     * @param string $author
      * @return Response
      */
     public function update(Request $request, $author)
@@ -68,13 +68,17 @@ class AuthorController extends Controller
 
     /**
      * Delete a given Author
-     * @param Request $request
-     * @param Author $author
-     * @return void
+     * @param string $author
+     * @return Response
      */
-    public function destroy(Request $request, Author $author)
+    public function destroy($author)
     {
 
+        $author = Author::findOrFail($author);
+
+        $author->delete();
+
+        return $this->successResponse(null,Response::HTTP_NO_CONTENT);
     }
 
     /**
