@@ -22,9 +22,7 @@ class AuthorController extends Controller
      */
     public function index()
     {
-        return $this->successResponse([
-            'authors' => Author::all()
-        ],200);
+        return $this->successResponse(Author::all(),200);
     }
 
     /**
@@ -34,19 +32,25 @@ class AuthorController extends Controller
      */
     public function show( $author )
     {
-        return response([
-            'author' => Author::findOrFail($author)
-        ],200);
+        return $this->successResponse(Author::findOrFail($author),200);
     }
 
     /**
      * Create a new Author
      * @param Request $request
-     * @return void
+     * @return Response
      */
     public function store(Request $request)
     {
+        $validatedData = $this->validate($request,[
+            'name'=>'required|max:255',
+            'gender'=> 'required|in:male,female|max:255',
+            'country'=> 'required|max:255',
+        ]);
 
+        $newAuthor = Author::create($validatedData);
+
+        return $this->successResponse($newAuthor, Response::HTTP_CREATED);
     }
 
     /**
