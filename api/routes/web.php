@@ -15,24 +15,33 @@
 
 
 /**
+ * Routes for users
+ */
+
+$router->group(['prefix' => 'users','middleware'=>'client.credentials'], function () use ($router) {
+
+    $router->get('/', 'UserController@index');
+    $router->post('/', 'UserController@store');
+    $router->get('/{user}', 'UserController@show');
+    $router->put('/{user}', 'UserController@update');
+    $router->patch('/{user}', 'UserController@update');
+    $router->delete('/{user}', 'UserController@destroy');
+
+});
+
+/**
  * Routes for authors
  */
 $router->group(['prefix' => 'authors','middleware'=>'client.credentials'], function () use ($router) {
 
     $router->get('/', 'AuthorController@index');
-
     $router->post('/', 'AuthorController@store');
-
     $router->get('/{author}', 'AuthorController@show');
-
     $router->put('/{author}', 'AuthorController@update');
-
     $router->patch('/{author}', 'AuthorController@update');
-
     $router->delete('/{author}', 'AuthorController@destroy');
 
 });
-
 
 /**
  * Routes for books
@@ -41,15 +50,10 @@ $router->group(['prefix' => 'authors','middleware'=>'client.credentials'], funct
 $router->group(['prefix' => 'books','middleware'=>'client.credentials'], function () use ($router) {
 
     $router->get('/', 'BookController@index');
-
     $router->post('/', 'BookController@store');
-
     $router->get('/{book}', 'BookController@show');
-
     $router->put('/{book}', 'BookController@update');
-
     $router->patch('/{book}', 'BookController@update');
-
     $router->delete('/{book}', 'BookController@destroy');
 
 });
