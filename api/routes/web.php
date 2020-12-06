@@ -30,6 +30,13 @@ $router->group(['prefix' => 'users','middleware'=>'client.credentials'], functio
 });
 
 /**
+ * User credentials protected routes
+ */
+$router->group(['middleware' => 'auth:api'], function () use ($router) {
+    $router->get('/users/me', 'UserController@me');
+});
+
+/**
  * Routes for authors
  */
 $router->group(['prefix' => 'authors','middleware'=>'client.credentials'], function () use ($router) {

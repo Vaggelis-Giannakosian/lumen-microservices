@@ -93,4 +93,13 @@ class UserController extends Controller
         return $validatedData;
     }
 
+    /**
+     * Identify an existing user
+     * @param string $user
+     * @return JsonResponse
+     */
+    public function me(Request $request){
+        return $this->validResponse($request->user());
+    }
+
 }
