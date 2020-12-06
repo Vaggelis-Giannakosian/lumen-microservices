@@ -17,7 +17,7 @@
 /**
  * Routes for authors
  */
-$router->group(['prefix' => 'authors'], function () use ($router) {
+$router->group(['prefix' => 'authors','middleware'=>'client.credentials'], function () use ($router) {
 
     $router->get('/', 'AuthorController@index');
 
@@ -38,7 +38,7 @@ $router->group(['prefix' => 'authors'], function () use ($router) {
  * Routes for books
  */
 
-$router->group(['prefix' => 'books'], function () use ($router) {
+$router->group(['prefix' => 'books','middleware'=>'client.credentials'], function () use ($router) {
 
     $router->get('/', 'BookController@index');
 
