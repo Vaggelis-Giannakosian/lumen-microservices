@@ -9,10 +9,12 @@ class BookService
     use ConsumesExternalService;
 
     protected $baseUri;
+    protected $secret;
 
     public function __construct()
     {
         $this->baseUri = config('services.books.base_uri');
+        $this->secret = config('services.authors.secret');
     }
 
     /**
