@@ -12,13 +12,13 @@ trait ConsumesExternalService
      * Send a request to any service
      * @return string
      */
-    public function performRequest($method, $requestUrl, $formParams = [], $headers = []){
+    public function performRequest($method, $requestUri, $formParams = [], $headers = []){
 
         $client = new Client([
             'base_uri' => $this->baseUri,
         ]);
 
-        $response = $client->request($method, $requestUrl, [
+        $response = $client->request($method, $requestUri, [
             'form_params'=> $formParams,
             'headers' => $headers
         ]);

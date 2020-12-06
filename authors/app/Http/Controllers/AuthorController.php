@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Author;
 use App\Traits\ApiResponser;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
@@ -19,7 +20,7 @@ class AuthorController extends Controller
 
     /**
      * Show the authors list
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -29,7 +30,7 @@ class AuthorController extends Controller
     /**
      * Show a single author
      * @param string $author
-     * @return Response
+     * @return JsonResponse
      */
     public function show($author)
     {
@@ -39,7 +40,7 @@ class AuthorController extends Controller
     /**
      * Create a new Author
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -54,7 +55,7 @@ class AuthorController extends Controller
      * Update the data of a given Author
      * @param Request $request
      * @param string $author
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $author)
     {
@@ -70,7 +71,7 @@ class AuthorController extends Controller
     /**
      * Delete a given Author
      * @param string $author
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($author)
     {

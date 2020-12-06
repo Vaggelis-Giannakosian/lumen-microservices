@@ -2,27 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\BookService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class BookController extends Controller
 {
 
     use ApiResponser;
 
-    public function __construct()
+    /**
+     * @var BookService
+     */
+    protected $service;
+
+    public function __construct(BookService $service)
     {
-        //
+        $this->service = $service;
     }
 
     /**
      * Show the books list
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
-
+        $response = $this->service->performRequest('get','lumen.books.test/books');
+        return $this->successResponse($response);
     }
 
     /**

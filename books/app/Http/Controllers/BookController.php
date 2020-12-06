@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Traits\ApiResponser;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Validation\Rule;
@@ -20,7 +21,7 @@ class BookController extends Controller
 
     /**
      * Show the books list
-     * @return Response
+     * @return JsonResponse
      */
     public function index()
     {
@@ -30,7 +31,7 @@ class BookController extends Controller
     /**
      * Show a single book
      * @param string $book
-     * @return Response
+     * @return JsonResponse
      */
     public function show($book)
     {
@@ -40,7 +41,7 @@ class BookController extends Controller
     /**
      * Create a new Book
      * @param Request $request
-     * @return Response
+     * @return JsonResponse
      */
     public function store(Request $request)
     {
@@ -54,7 +55,7 @@ class BookController extends Controller
      * Update the data of a given Book
      * @param Request $request
      * @param string $book
-     * @return Response
+     * @return JsonResponse
      */
     public function update(Request $request, $book)
     {
@@ -69,7 +70,7 @@ class BookController extends Controller
     /**
      * Delete a given Book
      * @param string $book
-     * @return Response
+     * @return JsonResponse
      */
     public function destroy($book)
     {
