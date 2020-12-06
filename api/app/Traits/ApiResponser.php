@@ -11,13 +11,11 @@ trait ApiResponser
     /**
      * @param string|array $data
      * @param int $code
-     * @return JsonResponse
+     * @return Response|\Laravel\Lumen\Http\ResponseFactory
      */
     public function successResponse($data, $code = Response::HTTP_OK)
     {
-        return response()->json([
-            'data'=>$data
-        ],$code);
+        return response($data,$code)->header('Content-Type','application/json');
     }
 
     /**
@@ -29,7 +27,11 @@ trait ApiResponser
     {
         return response()->json([
             'error'=>$message,
-            'code' =>$code
+            'code'=>$code
         ],$code);
+    }
+
+    public function errorMessage($message,$code){
+        return response($message,$code)->header('Content-Type','application/json');
     }
 }

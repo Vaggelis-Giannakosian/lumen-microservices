@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Response;
 
 trait ApiResponser
@@ -10,11 +11,11 @@ trait ApiResponser
     /**
      * @param string|array $data
      * @param int $code
-     * @return Response|\Laravel\Lumen\Http\ResponseFactory
+     * @return JsonResponse
      */
     public function successResponse($data, $code = Response::HTTP_OK)
     {
-        return response([
+        return response()->json([
             'data'=>$data
         ],$code);
     }
@@ -22,11 +23,11 @@ trait ApiResponser
     /**
      * @param string|array $data
      * @param int $code
-     * @return Response|\Laravel\Lumen\Http\ResponseFactory
+     * @return JsonResponse
      */
     public function errorResponse($message, $code)
     {
-        return response([
+        return response()->json([
             'error'=>$message,
             'code' =>$code
         ],$code);
